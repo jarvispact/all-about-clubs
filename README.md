@@ -34,3 +34,10 @@ const Comp = ({children}) => {
 ```
 
 I wanted to keep things simple and quick, so i decided to use styled-components, just to get a basic theming and styling solution up and running. i hope this is ok 😕 🙃
+
+## time
+
+initial commit: Sun Feb 7 09:35:58 2021 +0100
+last commit: Sun Feb 7 19:01:45 2021 +0100
+pause: 90 min
+total: ~ 8 hours
