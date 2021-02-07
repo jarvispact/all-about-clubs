@@ -9,6 +9,7 @@ import { useHistory } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 import { LoadinIndicator } from '../components/loading-indicator';
 import { ErrorIndicator } from '../components/error-indicator';
+import { useLocalStorageState } from '../domain/use-local-storage-state';
 
 const PageContent = styled.div`
     margin-top: 60px;
@@ -37,7 +38,7 @@ const ClubList = () => {
     const { status, result } = useClubList();
     const history = useHistory();
     const intl = useIntl();
-    const [sortDirection, setSortDirection] = useState<SortDirection>('name-ascending');
+    const [sortDirection, setSortDirection] = useLocalStorageState<SortDirection>('list-sort-direction', 'name-ascending');
 
     const handleItemClick = useCallback((id: string) => history.push(`/club/${id}`), []);
 
