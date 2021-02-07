@@ -6,6 +6,7 @@ import { ClubListViewModel } from '../domain/clubs/types';
 import { useClubList } from '../domain/clubs/use-club-list';
 import { styled } from '../styled';
 import { useHistory } from 'react-router-dom';
+import { useIntl } from 'react-intl';
 
 const PageContent = styled.div`
     margin-top: 60px;
@@ -29,6 +30,7 @@ const sortFn = (sortDirection: SortDirection) => (a: ClubListViewModel, b: ClubL
 const ClubList = () => {
     const { status, result } = useClubList();
     const history = useHistory();
+    const intl = useIntl();
     const [sortDirection, setSortDirection] = useState<SortDirection>('name-ascending');
 
     const handleItemClick = useCallback((id: string) => history.push(`/club/${id}`), []);
@@ -42,7 +44,7 @@ const ClubList = () => {
 
     return (
         <>
-            <AppBar title="all about clubs" onSortClick={handleToggleSortDirection} />
+            <AppBar title={intl.formatMessage({ id: 'appTitle' })} onSortClick={handleToggleSortDirection} />
             <PageContent>
                 <List>
                     {(result as Array<ClubListViewModel>).sort(sortFn(sortDirection)).map((item) => (

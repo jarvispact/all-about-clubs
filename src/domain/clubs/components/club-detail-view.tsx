@@ -1,4 +1,6 @@
+/* eslint-disable react/display-name */
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { styled } from '../../../styled';
 import { ClubDetailViewModel } from '../types';
 
@@ -49,17 +51,17 @@ type Props = {
 };
 
 export const ClubDetailView = ({ club }: Props) => {
+    const intl = useIntl();
+
     return (
         <>
             <Banner>
                 <Image width="100%" imageHeight={['200px', '300px']} src={club.image} />
                 <Country>{club.country}</Country>
             </Banner>
+            <Description>{intl.formatMessage({ id: 'clubValueInfo' }, { ...club, b: (chunk) => <b>{chunk}</b> })}</Description>
             <Description>
-                Der Club <b>{club.name}</b> aus {club.country} hat einen Wert von {club.value} Millionen Euro.
-            </Description>
-            <Description>
-                <b>{club.name}</b> konnte bislang {club.european_titles} Siege auf europäischer Ebene erreichen.
+                {intl.formatMessage({ id: 'clubTitleInfo' }, { name: club.name, titles: club.european_titles, b: (chunk) => <b>{chunk}</b> })}
             </Description>
         </>
     );
