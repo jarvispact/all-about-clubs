@@ -1,4 +1,5 @@
 import React from 'react';
+import { useIntl } from 'react-intl';
 import { styled } from '../../../styled';
 import { theme } from '../../../theme';
 import { ClubListViewModel } from '../types';
@@ -46,6 +47,8 @@ type Props = {
 };
 
 export const ClubListItem = ({ item, onItemClick }: Props) => {
+    const intl = useIntl();
+
     return (
         <ListItemWrapper role="listitem" onClick={() => onItemClick(item.id)}>
             <Image src={item.image} width="100%" height="30px" imageHeight={['30px', '50px']} />
@@ -58,7 +61,7 @@ export const ClubListItem = ({ item, onItemClick }: Props) => {
                     {item.country}
                 </Text>
                 <Text size="s" weight="m">
-                    {item.value} Millionen Euro
+                    {intl.formatMessage({ id: 'clubListItemValue' }, { value: item.value })}
                 </Text>
             </Info>
         </ListItemWrapper>

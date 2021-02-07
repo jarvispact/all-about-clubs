@@ -7,6 +7,8 @@ import { useClubList } from '../domain/clubs/use-club-list';
 import { styled } from '../styled';
 import { useHistory } from 'react-router-dom';
 import { useIntl } from 'react-intl';
+import { LoadinIndicator } from '../components/loading-indicator';
+import { ErrorIndicator } from '../components/error-indicator';
 
 const PageContent = styled.div`
     margin-top: 60px;
@@ -16,12 +18,16 @@ const PageContent = styled.div`
     }
 `;
 
+const EmptyList = styled.div`
+    padding: ${(props) => props.theme.spacing.xl};
+`;
+
 type SortDirection = 'name-ascending' | 'value-descending';
 
 const sortFn = (sortDirection: SortDirection) => (a: ClubListViewModel, b: ClubListViewModel) => {
     switch (sortDirection) {
         case 'value-descending':
-            return a.value < b.value ? -1 : 1;
+            return a.value < b.value ? 1 : -1;
         default:
             return a.name.localeCompare(b.name);
     }
@@ -39,17 +45,23 @@ const ClubList = () => {
         setSortDirection((prev) => (prev === 'value-descending' ? 'name-ascending' : 'value-descending'));
     }, [sortDirection]);
 
-    if (status === 'loading' || result === null) return <div>loading...</div>;
-    if (status === 'error') return <div>error {JSON.stringify({ result })}</div>;
+    if (status === 'loading' || result === null) return <LoadinIndicator />;
+    if (status === 'error') return <ErrorIndicator error={(result as any) as Error} />;
+
+    // uncomment to see that the empty list case is handled :)
+    // const clubList: Array<ClubListViewModel> = [];
+    const clubList = result as Array<ClubListViewModel>;
 
     return (
         <>
             <AppBar title={intl.formatMessage({ id: 'appTitle' })} onSortClick={handleToggleSortDirection} />
             <PageContent>
                 <List>
-                    {(result as Array<ClubListViewModel>).sort(sortFn(sortDirection)).map((item) => (
-                        <ClubListItem key={item.id} item={item} onItemClick={handleItemClick} />
-                    ))}
+                    {clubList.length ? (
+                        clubList.sort(sortFn(sortDirection)).map((item) => <ClubListItem key={item.id} item={item} onItemClick={handleItemClick} />)
+                    ) : (
+                        <EmptyList>{intl.formatMessage({ id: 'emptyClublist' })}</EmptyList>
+                    )}
                 </List>
             </PageContent>
         </>
