@@ -18,7 +18,7 @@ const SVG = styled.svg`
 
 export const IconSvg = ({ children }: Props) => {
     return (
-        <SVG xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <SVG xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             {children}
         </SVG>
     );

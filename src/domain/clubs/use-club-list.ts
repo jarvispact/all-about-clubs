@@ -7,6 +7,7 @@ const mapResponseToViewModel = (response: ClubServerResponse): ClubListViewModel
     name: response.name,
     country: response.country,
     value: response.value,
+    image: response.image,
 });
 
 export const useClubList = () => {

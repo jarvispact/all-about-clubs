@@ -52,6 +52,6 @@ export const GlobalStyle = createGlobalStyle`
         font-family: ${(props) => props.theme.fontFamily.sans};
     }
     input:focus, button:focus, textarea:focus {
-        outline: solid 1.5px ${(props) => props.theme.color.primary500};
+        outline: solid 1.5px ${(props) => props.theme.color.primary700};
     }
 `;

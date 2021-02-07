@@ -31,6 +31,17 @@ export const theme = {
         '5xl': '3rem',
         '6xl': '4rem',
     },
+    fontWeight: {
+        xxs: '100',
+        xs: '200',
+        s: '300',
+        m: '400',
+        l: '500',
+        xl: '600',
+        '2xl': '700',
+        '3xl': '800',
+        '4xl': '900',
+    },
     fontFamily: {
         sans: [
             'system-ui',
@@ -64,9 +75,16 @@ export const theme = {
         gray800: '#262626',
         gray900: '#171717',
         primary500: '#01C13B',
+        primary700: '#017e27',
     },
     boxShadow: {
         appbar: '0px 1px 3px 2px rgba(0,0,0,0.49)',
+        iconButton: '2px 2px 5px 1px rgba(0,0,0,0.25)',
+    },
+    radii: {
+        s: '2px',
+        m: '4px',
+        l: '8px',
     },
 } as const;
 

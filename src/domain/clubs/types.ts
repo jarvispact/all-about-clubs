@@ -20,6 +20,7 @@ export type ClubListViewModel = {
     name: string;
     country: string;
     value: number;
+    image: string;
 };
 
 export type ClubDetailViewModel = ClubServerResponse;

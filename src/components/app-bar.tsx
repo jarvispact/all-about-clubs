@@ -1,6 +1,4 @@
 import React from 'react';
-// import { IconButton } from '@material-ui/core';
-// import SortIcon from '@material-ui/icons/Sort';
 import { SortIcon } from './sort-icon';
 import { styled } from '../styled';
 import { IconButton } from './icon-button';
@@ -54,13 +52,13 @@ const AppBar = ({ title, onBackClick, onSortClick }: Props) => {
     return (
         <StyledAppBar>
             <Start>
-                <IconButton onClick={onBackClick}>
+                <IconButton aria-label="back to list" onClick={onBackClick}>
                     <BackIcon />
                 </IconButton>
                 <Title>{title}</Title>
             </Start>
             <End>
-                <IconButton onClick={onSortClick}>
+                <IconButton aria-label="sort list" onClick={onSortClick}>
                     <SortIcon />
                 </IconButton>
             </End>
