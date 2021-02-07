@@ -1,5 +1,4 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import { styled } from '../../../styled';
 import { theme } from '../../../theme';
 import { ClubListViewModel } from '../types';
@@ -32,35 +31,34 @@ type FontWeight = keyof typeof theme.fontWeight;
 
 const Info = styled.div`
     flex: 1 1 auto;
-    padding-left: ${(props) => props.theme.spacing.l};
 `;
 
 const Text = styled.p<{ size: FontSize; weight: FontWeight }>`
     display: inline-block;
+    padding-left: ${(props) => props.theme.spacing.l};
     font-size: ${(props) => props.theme.fontSize[props.size]};
     font-weight: ${(props) => props.theme.fontWeight[props.weight]};
 `;
 
 type Props = {
     item: ClubListViewModel;
+    onItemClick: (id: string) => void;
 };
 
-export const ClubListItem = ({ item }: Props) => {
-    const { push } = useHistory();
-
+export const ClubListItem = ({ item, onItemClick }: Props) => {
     return (
-        <ListItemWrapper role="listitem" onClick={() => push(`/club/${item.id}`)}>
+        <ListItemWrapper role="listitem" onClick={() => onItemClick(item.id)}>
             <Image src={item.image} width="100%" height="30px" imageHeight={['30px', '50px']} />
             <Info>
                 <Text size="l" weight="xl">
                     {item.name}
                 </Text>
                 <br />
-                <Text size="m" weight="l">
+                <Text size="s" weight="l">
                     {item.country}
                 </Text>
                 <Text size="s" weight="m">
-                    {item.value}
+                    {item.value} Millionen Euro
                 </Text>
             </Info>
         </ListItemWrapper>

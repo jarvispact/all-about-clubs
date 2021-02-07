@@ -5,6 +5,7 @@ import { ClubList as List } from '../domain/clubs/components/club-list';
 import { ClubListViewModel } from '../domain/clubs/types';
 import { useClubList } from '../domain/clubs/use-club-list';
 import { styled } from '../styled';
+import { useHistory } from 'react-router-dom';
 
 const PageContent = styled.div`
     margin-top: 60px;
@@ -27,23 +28,25 @@ const sortFn = (sortDirection: SortDirection) => (a: ClubListViewModel, b: ClubL
 
 const ClubList = () => {
     const { status, result } = useClubList();
+    const history = useHistory();
     const [sortDirection, setSortDirection] = useState<SortDirection>('name-ascending');
 
-    const toggleSortDirection = useCallback(() => {
+    const handleItemClick = useCallback((id: string) => history.push(`/club/${id}`), []);
+
+    const handleToggleSortDirection = useCallback(() => {
         setSortDirection((prev) => (prev === 'value-descending' ? 'name-ascending' : 'value-descending'));
     }, [sortDirection]);
 
-    if (status === 'loading') return <div>loading...</div>;
+    if (status === 'loading' || result === null) return <div>loading...</div>;
     if (status === 'error') return <div>error {JSON.stringify({ result })}</div>;
-    if (!result) return <div>loading...</div>;
 
     return (
         <>
-            <AppBar title="all about clubs" onBackClick={() => {}} onSortClick={toggleSortDirection} />
+            <AppBar title="all about clubs" onSortClick={handleToggleSortDirection} />
             <PageContent>
                 <List>
                     {(result as Array<ClubListViewModel>).sort(sortFn(sortDirection)).map((item) => (
-                        <ClubListItem key={item.id} item={item} />
+                        <ClubListItem key={item.id} item={item} onItemClick={handleItemClick} />
                     ))}
                 </List>
             </PageContent>

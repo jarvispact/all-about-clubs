@@ -6,8 +6,8 @@ import { BackIcon } from './back-icon';
 
 type Props = {
     title: string;
-    onBackClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-    onSortClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    onBackClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    onSortClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
 const StyledAppBar = styled.header`
@@ -17,9 +17,10 @@ const StyledAppBar = styled.header`
     width: 100vw;
     height: 50px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     padding: ${(props) => props.theme.spacing.l};
+    z-index: 20;
     background-color: ${(props) => props.theme.color.primary500};
     color: ${(props) => props.theme.color.white};
     box-shadow: ${(props) => props.theme.boxShadow.appbar};
@@ -40,7 +41,7 @@ const End = styled.div`
 const Title = styled.h1`
     display: inline-block;
     vertical-align: 10%;
-    font-size: ${(props) => props.theme.fontSize.xl};
+    font-size: ${(props) => props.theme.fontSize.m};
     margin-left: ${(props) => props.theme.spacing.l};
 
     @media (min-width: ${(props) => props.theme.breakpoint.m}) {
@@ -52,15 +53,19 @@ const AppBar = ({ title, onBackClick, onSortClick }: Props) => {
     return (
         <StyledAppBar>
             <Start>
-                <IconButton aria-label="back to list" onClick={onBackClick}>
-                    <BackIcon />
-                </IconButton>
+                {onBackClick && (
+                    <IconButton aria-label="back to list" onClick={onBackClick}>
+                        <BackIcon />
+                    </IconButton>
+                )}
                 <Title>{title}</Title>
             </Start>
             <End>
-                <IconButton aria-label="sort list" onClick={onSortClick}>
-                    <SortIcon />
-                </IconButton>
+                {onSortClick && (
+                    <IconButton aria-label="sort list" onClick={onSortClick}>
+                        <SortIcon />
+                    </IconButton>
+                )}
             </End>
         </StyledAppBar>
     );
