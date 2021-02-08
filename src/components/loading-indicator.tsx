@@ -68,7 +68,7 @@ const Wrapper = styled.div`
     text-align: center;
 `;
 
-export const LoadinIndicator = () => {
+export const LoadingIndicator = () => {
     const intl = useIntl();
     return (
         <Fullpage>

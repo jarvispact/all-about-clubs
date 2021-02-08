@@ -16,6 +16,8 @@ const apiClient = {
     get: <T,>(url: string): Promise<T> => fetch(`${settings.apiBaseUrl}/${url}`).then((r) => r.json()),
 };
 
+export type ApiClient = typeof apiClient;
+
 export const ApiProvider = ({ children }: Props) => <ApiContext.Provider value={{ baseUrl: settings.apiBaseUrl, apiClient }}>{children}</ApiContext.Provider>;
 
 export const useApi = () => useContext(ApiContext);

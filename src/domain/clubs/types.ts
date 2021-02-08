@@ -24,3 +24,5 @@ export type ClubListViewModel = {
 };
 
 export type ClubDetailViewModel = ClubServerResponse;
+
+export type SortDirection = 'name-ascending' | 'value-descending';

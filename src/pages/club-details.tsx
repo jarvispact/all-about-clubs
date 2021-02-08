@@ -1,11 +1,10 @@
 import React, { useCallback } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import AppBar from '../components/app-bar';
-import { ErrorIndicator } from '../components/error-indicator';
-import { LoadinIndicator } from '../components/loading-indicator';
+import DataLoader from '../components/data-loader';
 import { NotFound } from '../components/not-found';
 import { ClubDetailView } from '../domain/clubs/components/club-detail-view';
-import { useClubDetails } from '../domain/clubs/use-club-details';
+import { useClubApi } from '../domain/clubs/repository/use-club-api';
 
 type DetailParams = {
     id: string;
@@ -14,19 +13,23 @@ type DetailParams = {
 const ClubDetails = () => {
     const { id } = useParams<DetailParams>();
     const history = useHistory();
-    const { status, result } = useClubDetails(id);
+    const Club = useClubApi();
 
     const handleBackClick = useCallback(() => history.push('/clubs'), []);
 
-    if (status === 'loading' || result === null) return <LoadinIndicator />;
-    if (status === 'error') return <ErrorIndicator error={(result as any) as Error} />;
-    if (result === undefined) return <NotFound />;
-
     return (
-        <>
-            <AppBar title={result.name} onBackClick={handleBackClick} />
-            <ClubDetailView club={result} />
-        </>
+        <DataLoader fetchData={() => Club.getDetails(id)} dependency={[id]}>
+            {(club) =>
+                club ? (
+                    <>
+                        <AppBar title={club.name} onBackClick={handleBackClick} />
+                        <ClubDetailView club={club} />
+                    </>
+                ) : (
+                    <NotFound />
+                )
+            }
+        </DataLoader>
     );
 };
 
