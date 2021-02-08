@@ -13,9 +13,8 @@ a list and detail view for football clubs
 
 ## the following things are handled by the app:
 
-- `src/pages/club-list.tsx` empty list case is handled within here, uncomment and see it in action
-- `src/pages/club-details.tsx` a 404 is handled here, simply type a invalid uuid in the url bar to see it in action
-- `src/domain/clubs/use-club-details.ts` long loading variant and error variant is handled within here, uncomment and see it in action
+- `src/domain/clubs/repository/get-club-list.ts` Empty List.
+- `src/domain/clubs/repository/get-club-details.ts` Loading and Error. Not the best Design, but you get the idea ;) a 404 can be triggered by changing the url.
 
 ## routing
 routing is implemented as well. you can use direct links to navigate to a club detail page. but its using the uuid rather than the array index. we should not use incrementing ids (sequences) to prevent attacks. of course it has not too much relevance in this demo app ;) 

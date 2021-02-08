@@ -9,6 +9,14 @@ const mapResponseToViewModel = (response: ClubServerResponse): ClubListViewModel
     image: response.image,
 });
 
+// ======================= EMPTY LIST
+
+// export const getClubList = (apiClient: ApiClient) => async () => {
+//     return [];
+// };
+
+// ======================= NORMAL
+
 export const getClubList = (apiClient: ApiClient) => async () => {
     const result: Array<ClubServerResponse> = await apiClient.get('/clubs.json');
     return result.map(mapResponseToViewModel);
